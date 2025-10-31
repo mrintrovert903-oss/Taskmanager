@@ -38,7 +38,7 @@ const AddTask = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     if(!title.trim()) return
-    await axios.post('http://localhost:5000/api/tasks',{title})
+    await axios.post(`${API_BASE_URL}/api/tasks`,{title})
     setTitle("")
   }
 

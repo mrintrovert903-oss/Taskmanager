@@ -16,7 +16,7 @@ const TaskList = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/tasks');
+      const res = await axios.get(`${API_BASE_URL}/api/tasks`);
       setTasks(res.data)
     } catch (err) {
       console.error("Error fetching tasks", err)
@@ -28,7 +28,7 @@ const TaskList = () => {
   },[])
 
   const deleteTask = async (id) => {
-    await axios.delete(`http://localhost:5000/api/tasks/${id}`)
+    await axios.delete(`${API_BASE_URL}/api/tasks/${id}`)
     fetchTasks()
   }
 
@@ -41,7 +41,7 @@ const TaskList = () => {
   // };
 
   const toggleComplete = async(id,completed) => {
-    await axios.put(`http://localhost:5000/api/tasks/${id}`,{
+    await axios.put(`${API_BASE_URL}/api/tasks/${id}`,{
       completed: !completed,
     })
     fetchTasks();
