@@ -6,7 +6,7 @@ import axios from "axios";
 const App = () => {
   const API_BASE_URL =
     process.env.NODE_ENV === "production"
-      ? "https://taskmanager-api.onrender.com"
+      ? "https://taskmanager-backend-4jhy.onrender.com"
       : "http://localhost:5000";
 
   const [tasks, setTasks] = useState([]);
