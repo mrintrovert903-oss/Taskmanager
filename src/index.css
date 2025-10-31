@@ -1,0 +1,7 @@
+
+
+/* Add Tailwind base, components and utilities so Tailwind generates CSS when built */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
