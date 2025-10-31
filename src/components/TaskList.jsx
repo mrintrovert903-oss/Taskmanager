@@ -1,51 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
-
-  // 🔹 Fetch all tasks from backend
-  // const fetchTasks = async () => {
-  //   try {
-  //     const res = await axios.get("http://localhost:5000/api/tasks");
-  //     setTasks(res.data);
-  //   } catch (err) {
-  //     console.error("Error fetching tasks:", err);
-  //   } 
-  // };
-
-  const fetchTasks = async () => {
-    try {
-      const res = await axios.get(`${API_BASE_URL}/api/tasks`);
-      setTasks(res.data)
-    } catch (err) {
-      console.error("Error fetching tasks", err)
-    }
-  }
-
-  useEffect (()=>{
-    fetchTasks()
-  },[])
-
+const TaskList = ({ API_BASE_URL, tasks, fetchTasks }) => {
   const deleteTask = async (id) => {
-    await axios.delete(`${API_BASE_URL}/api/tasks/${id}`)
-    fetchTasks()
-  }
-
-  // 🔹 Toggle completion status
-  // const toggleComplete = async (id, completed) => {
-  //   await axios.put(`http://localhost:5000/api/tasks/${id}`, {
-  //     completed: !completed,
-  //   });
-  //   fetchTasks(); // refresh list after updating
-  // };
-
-  const toggleComplete = async(id,completed) => {
-    await axios.put(`${API_BASE_URL}/api/tasks/${id}`,{
-      completed: !completed,
-    })
+    await axios.delete(`${API_BASE_URL}/api/tasks/${id}`);
     fetchTasks();
-  }
+  };
+
+  const toggleComplete = async (id, completed) => {
+    await axios.put(`${API_BASE_URL}/api/tasks/${id}`, {
+      completed: !completed,
+    });
+    fetchTasks();
+  };
 
   return (
     <div
@@ -75,7 +42,9 @@ const TaskList = () => {
                 padding: "10px 15px",
                 borderRadius: "8px",
                 backgroundColor: "#f9f9f9",
-                borderLeft: task.completed ? "5px solid green" : "5px solid orange",
+                borderLeft: task.completed
+                  ? "5px solid green"
+                  : "5px solid orange",
               }}
             >
               <div>
@@ -83,13 +52,11 @@ const TaskList = () => {
                   type="checkbox"
                   checked={task.completed}
                   onChange={() => toggleComplete(task._id, task.completed)}
-                  style={{ marginRight: "10px", cursor: "pointer" }}
                 />
                 <span
                   style={{
                     textDecoration: task.completed ? "line-through" : "none",
                     color: task.completed ? "gray" : "black",
-                    fontSize: "16px",
                   }}
                 >
                   {task.title}
